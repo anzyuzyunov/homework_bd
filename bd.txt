@@ -1,0 +1,49 @@
+create table if not exists Genre(
+ id SERIAL primary key,
+ genre VARCHAR(100) not null
+);
+
+create table if not exists Executor(
+ id SERIAL primary key,
+ executor VARCHAR(160) not null
+);
+
+create table if not exists GenreExecutor(
+genre_id integer references Genre(id),
+executor_id integer references Executor(id),
+constraint pk primary key (genre_id, executor_id)
+);
+
+
+create table if not exists Albums(
+id SERIAL primary key,
+albums varchar(100) not null,
+year_of_issue integer not null
+);
+
+create table if not exists Songs(
+id SERIAL primary key,
+songs varchar(100) not null,
+duration_sek integer not null,
+albums_id integer not null references Albums(id)
+);
+
+create table if not exists AlbumsExecutor(
+executor_id integer references Executor(id),
+albums_id integer references Albums(id),
+constraint lbums_executor primary key (executor_id, albums_id)
+);
+
+create table if not exists Collection_of_songs(
+id SERIAL primary key,
+name_collection varchar(100) not null,
+year integer not null
+
+);
+
+create table if not exists CollectionSongs(
+collection_id integer references Collection_of_songs(id),
+songs_id integer references Songs(id),
+constraint collson primary key(collection_id,songs_id)
+);
+
